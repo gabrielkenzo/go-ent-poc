@@ -2,8 +2,9 @@ package todo
 
 import (
 	"context"
+	"fmt"
+	"go-ent-poc/ent"
 	"log"
-	"todo/ent"
 
 	"entgo.io/ent/dialect"
 	_ "github.com/mattn/go-sqlite3"
@@ -22,4 +23,18 @@ func Example_Todo() {
 		log.Fatalf("failed creating schema resources: %v", err)
 	}
 	// Output:
+
+	task1, err := client.Todo.Create().SetText("Add GraphQL Example").Save(ctx)
+	if err != nil {
+		log.Fatalf("failed creating a todo: %v", err)
+	}
+	fmt.Printf("%d: %q\n", task1.ID, task1.Text)
+	task2, err := client.Todo.Create().SetText("Add Tracing Example").Save(ctx)
+	if err != nil {
+		log.Fatalf("failed creating a todo: %v", err)
+	}
+	fmt.Printf("%d: %q\n", task2.ID, task2.Text)
+	// Output:
+	// 1: "Add GraphQL Example"
+	// 2: "Add Tracing Example"
 }
