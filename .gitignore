@@ -1,3 +1,6 @@
 ent/*
 !ent/generate.go
 !ent/schema
+!ent/entc.go
+go.mod
+go.sum
