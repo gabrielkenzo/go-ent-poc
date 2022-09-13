@@ -1,0 +1,40 @@
+#Create TODO
+mutation CreateTodo {
+    createTodo(input: {text: "Create GraphQL Example", status: IN_PROGRESS, priority: 1}) {
+        id
+        text
+        createdAt
+        priority
+    }
+}
+
+#Query all
+query {
+  todos {
+    id
+    text
+    status
+  }
+}
+
+#Filter id == 1
+query {
+  node(id: 1) {
+    id
+    ... on Todo {
+      text
+    }
+  }
+}
+# Output: { "data": { "node": { "id": "1", "text": "Create GraphQL Example" } } }
+
+#Filter id == 1 or id == 2
+query {
+  nodes(ids: [1, 2]) {
+    id
+    ... on Todo {
+      text
+    }
+  }
+}
+# Output: { "data": { "nodes": [ { "id": "1", "text": "Create GraphQL Example" }, { "id": "2", "text": "Create Tracing Example" } ] } }
